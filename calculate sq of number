@@ -1,0 +1,16 @@
+#include <bits/stdc++.h> 
+int calculateSquare(int num)
+{
+    //    Write your code here.
+       int s=0;
+
+    for(int i=1;i<=abs(num);i++){
+
+     s+=abs(num);
+
+ 
+
+    }
+
+    return s;
+}
