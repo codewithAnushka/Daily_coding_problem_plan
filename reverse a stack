@@ -1,0 +1,19 @@
+
+class Solution{
+public:
+    void f(int i,stack<int>st,stack<int> &ans){
+        if(st.empty())return;
+        
+        int num=st.top();
+        st.pop();
+        ans.push(num);
+        f(i+1,st,ans);
+        
+    }
+    void Reverse(stack<int> &St){
+        
+        stack<int> ans;
+         f(0,St,ans);
+          St=ans;
+    }
+};
