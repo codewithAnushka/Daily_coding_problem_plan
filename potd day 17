@@ -1,0 +1,58 @@
+   vector<int> helper(int i, int j, vector<int> &num, int n) {
+    
+        bool changes = false;  
+        bool flag = false; 
+        while(i < j) {
+            if(num[i] < num[j]) {
+                num[j] = num[i]; 
+                changes = true; 
+                flag = true; 
+            } else if(num[i] > num[j]){
+                num[j] = num[i]; 
+                changes = true; 
+                flag = false; 
+            }
+            i++, j--; 
+        }
+        
+        if(n % 2 == 0) {
+            i = n/2-1, j = n/2;
+        } else {
+            i = n/2, j = n/2; 
+        }
+        
+        int carry = 1; 
+        bool temp = false; 
+        
+        if(flag == true || changes == false) {
+          
+            while(carry > 0 && i >= 0 && j < n) {
+               
+                int res = num[i] + carry; 
+                num[i] = res % 10; 
+                num[j] = res % 10; 
+                carry = res / 10; 
+                i--, j++; 
+            }
+            flag = false; 
+            changes = true;
+            temp = true; 
+        }
+        
+        if(carry > 0 && temp == true) {
+            num.push_back(carry); 
+            num.erase(num.begin()); 
+            num.insert(num.begin(), carry); 
+        }
+        
+        return num; 
+    }
+    vector<int> generateNextPalindrome(int num[], int n) {
+        vector<int> nums; 
+        for(int i = 0; i < n; i++) {
+            nums.push_back(num[i]); 
+        }
+        
+        return helper(0, n-1, nums, n); 
+    } 
+
