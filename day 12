@@ -1,0 +1,27 @@
+class Solution:
+    
+    def has_even_surrounding_zeroes(self, mat, directions, i, j, l, b):
+        c = 0
+        for dx, dy in directions:
+            x = i + dx
+            y = j + dy
+            if 0 <= x < l and 0 <= y < b and mat[x][y] == 0:
+                c += 1
+        if c > 0 and c%2 == 0:
+            return True
+        return False
+    
+    def Count(self, mat):
+        # Code here
+        directions = [(-1, -1), (-1, 0), (-1 ,1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+        
+        l = len(mat)
+        b = len(mat[0])
+        
+        count = 0
+        
+        for i in range(l):
+            for j in range(b):
+                if mat[i][j] == 1 and self.has_even_surrounding_zeroes(mat, directions, i, j, l, b):
+                    count += 1
+        return count
