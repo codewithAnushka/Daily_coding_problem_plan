@@ -1,0 +1,14 @@
+int findMinOpeartion(vector<vector<int> > matrix, int n)
+    {
+        int maxi=0,sum=0;
+        for(int i=0;i<n;i++){
+            int r=0,c=0;
+            for(int j=0;j<n;j++){
+                r+=matrix[i][j];
+                c+=matrix[j][i];
+                sum+=matrix[i][j];
+            }
+            maxi=max({maxi,r,c});
+        }
+        return n*maxi-sum;
+    } 
