@@ -1,0 +1,10 @@
+lass Solution{
+public:	
+	int isPalindrome(string s) {
+	    int lo=0, hi=s.size()-1;
+	    while(lo<hi) {
+	        if(s[lo++] != s[hi--]) return 0;
+	    }
+	    return 1;
+	}
+};
