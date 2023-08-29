@@ -1,0 +1,55 @@
+class Solution
+{
+    public:
+    Node *compute(Node *head)
+    {   
+        if(head==NULL || head->next==NULL)
+            return head;
+        
+        Node* curr=head;
+        Node* prev=NULL;
+        
+        while(curr!=NULL)
+        {
+            Node* nxt=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=nxt;
+        }
+        curr=prev;
+        prev=NULL;
+        stack<Node*> st;
+        st.push(curr);
+        curr=curr->next;
+        while(curr!=NULL)
+        {   
+            if(curr->data>=st.top()->data)
+            {
+                st.push(curr);
+            }
+            curr=curr->next;
+        }
+       Node *ans = prev;
+       while (!st.empty())
+       {
+          Node *temp = st.top();
+          st.pop();
+        
+        
+            if (prev == NULL)
+            {
+                ans = temp;
+            }
+            else
+            {
+                prev->next = temp;
+            }
+            prev = temp;
+        }
+    prev->next = NULL;
+    
+    return ans;
+
+    }
+    
+};
