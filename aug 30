@@ -1,0 +1,15 @@
+Node* deleteNode(Node *head,int x)
+{
+    //Your code here
+    Node *d = new Node(0);
+    d->next = head;
+    
+    Node *p = d;
+    
+    while(--x)
+    p = p->next;
+    
+    p->next = p->next->next;
+    
+    return d->next;
+}
