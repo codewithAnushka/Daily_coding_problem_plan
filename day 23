@@ -1,0 +1,44 @@
+int getCount(Node *root, int k)
+    {
+      int c=0;
+      queue<Node*> q;
+      vector<int> v;
+      q.push(root);
+      while(!q.empty())
+      {
+          c++;
+          int size = q.size();
+          for(int i=0;i< size;i++)
+          {
+              Node* node = q.front();
+              q.pop();
+              if(node->left)
+              {
+                  q.push(node->left);
+                  
+              }
+              if(node->right)
+              {
+                  q.push(node->right);
+                  
+              }
+              if(node->left==0 && node->right== 0)
+              {
+                  v.push_back(c);
+              }
+          }
+      }
+      int count =0, sum=0;
+      sort(v.begin(), v.end());
+      for(int i=0;i< v.size();i++)
+      {
+          sum+=v[i];
+          if(sum<=k)
+          {
+              count++;
+              
+          }
+      }
+      return count ;
+    }
+
