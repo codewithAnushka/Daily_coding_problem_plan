@@ -1,0 +1,29 @@
+void dfs(int i,set<int>& s,vector<int> adj[],vector<int>& vis){
+        vis[i] = 1;
+        for(int it : adj[i]){
+                // Check if the neighbour exists in the set
+                if(s.find(it) != s.end())continue; 
+                s.insert(it);
+                dfs(it,s,adj,vis);
+        }
+    }
+    
+    //Function to find a Mother Vertex in the Graph.
+	int findMotherVertex(int V, vector<int>adj[])
+	{
+
+	    set<int> s;
+	    vector<int> vis(V,-1);
+	    for(int i=0;i< V;i++){
+	        if(vis[i] == -1){
+	            s.insert(i);
+	            dfs(i,s,adj,vis);
+	            if(s.size() == V)return i;
+	            s.clear();    
+	        }
+	        
+	    }
+	    
+	    return -1;
+	     
+	}
