@@ -1,0 +1,23 @@
+void reverseInorder(Node* root, int &K, int &ans, int &stop)
+    {
+        if(root==NULL || stop==true)
+            return;
+            
+        reverseInorder(root->right,K,ans,stop);
+        K--;
+        if(K==0){
+            ans=root->data;
+            stop=true;
+        }
+        reverseInorder(root->left,K,ans,stop);
+    }
+    
+    int kthLargest(Node *root, int K)
+    {
+        int ans=0;
+        int stop=false;
+        
+        reverseInorder(root,K,ans,stop);
+        return ans;
+        
+    }
