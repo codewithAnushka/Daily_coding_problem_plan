@@ -1,0 +1,16 @@
+if((S == 0 && N!=1) || N*9<S)return "-1";
+            
+        int nines = S/9;
+        int rem = S%9;
+        string num(nines,'9');
+        
+        if(rem!=0)
+            num += to_string(rem);
+        if(num.length() == N)
+            return num;
+        else{
+            string zeros(N-num.length(),'0');
+            num += zeros;
+            return num;
+        }
+
