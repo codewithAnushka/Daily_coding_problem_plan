@@ -1,0 +1,13 @@
+ unsigned int getFirstSetBit(int n)
+    {
+       
+        int pos = 1;
+        while( n >= 1){
+            if( n & 1)
+            return pos;
+            
+            n = n / 2;
+            pos++;
+        }
+        return 0;
+    }
