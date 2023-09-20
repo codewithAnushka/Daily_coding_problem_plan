@@ -1,0 +1,28 @@
+vector <int> rotate (int n, int d)
+        {
+            d=d-(d/16)*16;
+            vector<int> ans;
+                int l=d,n1=n;
+                while(l){
+                    if(n1 & (1<<15)){
+                        n1=n1<<1;
+                        n1=n1 ^ (1<<16);
+                        n1++;
+                    }else{
+                        n1=n1<<1;
+                    }
+                    l--;
+                }
+                ans.push_back(n1);
+                while(d){
+                    if(n & 1){
+                        n=n>>1;
+                        n+=pow(2,15);
+                    }else{
+                        n=n>>1;
+                    }
+                    d--;
+                }
+                ans.push_back(n);
+            return ans;
+        }
