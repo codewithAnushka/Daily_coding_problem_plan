@@ -1,0 +1,13 @@
+    int FindMaxSum(int arr[], int n)
+    {
+        int b = arr[0];
+        if(n == 1)
+            return b;
+        int c = max(arr[0], arr[1]);
+        for(int i = 2;i < n;i++){
+            int a = max(arr[i] + b, c);
+            b = c;
+            c = a;
+        }
+        return c;
+    }
