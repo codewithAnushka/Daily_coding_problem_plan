@@ -1,0 +1,9 @@
+def equilibriumPoint(self,A, N):
+        total_sum=sum(A)
+        sum_before=0
+        for i in range(N):
+            sum_after=total_sum-sum_before-A[i]
+            if sum_before==sum_after:
+                return i+1
+            sum_before+=A[i]
+        return -1
