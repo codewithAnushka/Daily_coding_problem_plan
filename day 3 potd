@@ -1,0 +1,13 @@
+def booleanMatrix(matrix):
+    row=len(matrix)
+    col=len(matrix[0])
+    d={"row":set(),"col":set()}
+    for i in range(row):
+        for j in range(col):
+            if matrix[i][j]==1:
+                d["row"].add(i)
+                d["col"].add(j)
+    for i in range(row):
+        for j in range(col):
+            if matrix[i][j]==0 and ((i in d["row"]) or (j in d["col"])):
+                matrix[i][j]=1
