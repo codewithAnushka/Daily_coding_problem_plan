@@ -1,0 +1,15 @@
+class Solution{
+    public:
+    string colName (long long int n)
+    {
+        string s = "";
+        char c;
+        
+        while(n>0){
+            c = (--n % 26 + 'A');
+            s = c + s;
+            n /= 26;
+        }
+        return s;
+    }
+};
