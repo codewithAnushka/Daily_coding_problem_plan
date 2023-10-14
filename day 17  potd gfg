@@ -1,0 +1,45 @@
+
+rajesh_191
+6 minutes ago
+
+EASY C++ Solution Using Inorder Traversal and property of BST
+
+class Solution
+{
+    public:
+    //Function to find the nodes that are common in both BST.
+    void inorder(Node* root,vector<int> &arr){
+        if(root==NULL){
+            return;
+        }
+        inorder(root->left,arr);
+        arr.push_back(root->data);
+        inorder(root->right,arr);
+    }
+    vector <int> findCommon(Node *root1, Node *root2)
+    {
+     //Your code here
+     vector<int> ans;
+     if(root1==NULL || root2==NULL){
+         return ans;
+     }
+     vector<int> loop1;
+     vector<int> loop2;
+     inorder(root1,loop1);
+     inorder(root2,loop2);
+     int i=0,j=0;
+     while(i<loop1.size() && j<loop2.size()){
+         
+        if(loop1[i]==loop2[j]){
+            ans.push_back(loop1[i]);
+            i++;
+            j++;
+        }else if(loop1[i]<loop2[j]){
+            i++;
+        }else{
+            j++;
+        }
+     }
+        return ans;
+    }
+};
