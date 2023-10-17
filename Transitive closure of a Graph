@@ -1,0 +1,463 @@
+vector<vector<int>> transitiveClosure(int N, vector<vector<int>> graph)
+    {
+        // code here
+        vector<int>row;
+        vector<int>column;
+        //firstly making all diagonal elements 1
+        for(int i=0;i<N;i++)
+        {
+            graph[i][i]=1;
+        }
+        // first loop for selection of a row and column same index x
+        for(int i=0;i<N;i++)
+        {
+            //column x having 1 at positions is stored in vector column
+            for(int j=0;j<N;j++)
+            {
+               if(graph[j][i]==1)
+               {
+                   column.push_back(j);
+               }
+            }
+            // row x having 1 at postions is stored in vector row
+            for(int k=0;k<N;k++)
+            {
+                    if(graph[i][k]==1)
+                    {
+                         row.push_back(k);
+                    }
+                    
+            }
+            // for making it transitive using vector column and row making cartesian product and making
+            // cartesian product value as 1
+            // graph[column][row]=1
+            for(int g=0;g<column.size();g++)
+            {
+                for(int h =0;h<row.size();h++)
+                {
+                    graph[column[g]][row[h]]=1;
+                }
+            }
+            // clearing vectors row and column for next iteration
+            row.clear();
+            column.clear();
+            
+        }
+        return graph;
+    }
+
+0
+
+dk_007
+22 minutes ago
+
+T = N^3
+
+S = 1
+
+class Solution{
+public:
+    vector<vector<int>> transitiveClosure(int N, vector<vector<int>> graph)
+    {
+        for(int k=0;k<N;k++)
+            for(int i=0;i<N;i++)
+                for(int j=0;j<N;j++)
+                    if(i == j || graph[i][j] || graph[i][k] && graph[k][j] ) graph[i][j]  = 1;
+        return graph;
+    }
+};
+
+ 
+
++2
+
+suhailkna
+72 minutes ago
+
+Java Solution using dfs
+
+class Solution{
+    static ArrayList<ArrayList<Integer>> transitiveClosure(int N, int graph[][])
+    {
+        // code here
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        
+        for(int src=0; src<N; src++) {
+            adj.add(new ArrayList<>());
+            ans.add(new ArrayList<>(Collections.nCopies(N, 0)));
+            for(int dest=0; dest<N; dest++) {
+                if(graph[src][dest]==1) {
+                    adj.get(src).add(dest);
+                }
+            }
+        }
+        
+        for(int idx=0; idx<N; idx++) {
+            dfs(idx, idx, new boolean[N], adj, ans);
+        }
+        return ans;
+    }
+    
+    static void dfs(int src, int dest, boolean[] visited, ArrayList<ArrayList<Integer>> adj, ArrayList<ArrayList<Integer>> ans) {
+        ans.get(src).set(dest, 1);
+        visited[dest] = true;
+        for(int neighbor: adj.get(dest)){
+            if(!visited[neighbor]){
+                dfs(src, neighbor, visited, adj, ans);
+            }
+        }
+    }
+}
+ 
+
+0
+
+yagmurkoksal444
+83 minutes ago
+
+Simple Python Solution
+
+#User function Template for python3
+
+import copy
+class Solution:
+    past=[[-1]*100]*100 #Create a past graph for compare
+    
+    def is_identical(self,a,b,N):  #comparation method
+        for i in range(N):
+            for j in range(N):
+                if a[i][j]!=b[i][j]:
+                    return False
+        return True
+        
+    def traverse(self, N, graph):    #traverse graph
+        temp = copy.deepcopy(graph)
+        for row in range(N):  # get rows
+            for column in range(N):  # get columns
+                if temp[row][column] == 1:  #if there is a path, also sign current vertex's values as one
+                    for i in range(N):
+                        if temp[column][i] == 1:
+                            temp[row][i] = 1
+                if column == row and temp[row][column] == 0: #if only there are cycles
+                    temp[row][column] = 1
+        return temp
+        
+    def transitiveClosure(self, N, graph):
+        while not self.is_identical(self.past,graph,N): #if false there is no other possible path
+            self.past=copy.deepcopy(graph)
+            graph=copy.deepcopy(self.traverse(N, graph))
+        return graph
+ 
+
+0
+
+deepanshu111y
+114 minutes ago
+
+Simple O(n2) approach using DFS
+
+class Solution{
+public:
+    void dfs(int u , vector<vector<int>> & graph, vector<int>& vis){
+        vis[u] = 1;
+        
+        for(int v = 0 ; v < graph.size(); v++){
+            if(graph[u][v] == 1 and !vis[v]){
+                dfs(v , graph , vis);
+            }
+        }
+    }
+    vector<vector<int>> transitiveClosure(int N, vector<vector<int>> graph)
+    {
+        vector<vector<int>> ans;
+        
+        for(int i = 0 ; i < N ; i++){
+            
+            vector<int> vis(N , 0);
+            
+            dfs(i , graph , vis);
+            
+            ans.push_back(vis);
+        }
+        
+        return ans;
+    }
+};
+
+0
+
+aakashkumapyg8
+2 hours ago
+
+vector<vector<int>> transitiveClosure(int N, vector<vector<int>> grid)
+    {
+        // code here
+        int n=N;
+        
+        for(int k=0; k<n; k++){
+            for(int i=0; i<n; i++){
+                for(int j=0; j<n; j++){
+                    if(i==j) grid[i][j]=1;
+                    if(grid[i][j]==0){
+                        if(grid[i][k]==1 && grid[k][j]==1) grid[i][j]=1;
+                    }
+                }
+            }
+        }
+        
+        return grid;
+    }
+ 
+
+0
+
+kumaranki3084
+2 hours ago
+
+GO AND REVISE Floyd-Warshall algorithm..
+
+0
+
+pappukumar35
+2 hours ago
+
+java - solution
+
+class Solution{
+    static ArrayList<ArrayList<Integer>> transitiveClosure(int n, int graph[][]) {
+		for (int via = 0; via < n; via++) {
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					if (graph[i][j] == 0 && graph[i][via] == 1 && graph[via][j] == 1) {
+						graph[i][j] = 1;
+					}
+					if (i == j) {
+						graph[i][j] = 1;
+					}
+				}
+			}
+		}
+		ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+		for (int i = 0; i < n; i++) {
+			ArrayList<Integer> row = new ArrayList<>();
+			for (int j = 0; j < n; j++) {
+				row.add(graph[i][j]);
+			}
+			ans.add(row);
+		}
+		return ans;
+	}
+}
+0
+
+ujjwalsharma21
+2 hours ago
+
+JAVA EASIEST BEGINNER FRIENDLY 
+
+
+
+class Solution{
+    static ArrayList<ArrayList<Integer>> transitiveClosure(int N, int graph[][])
+    {
+        ArrayList<ArrayList<Integer>> arr=new ArrayList<>();
+        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
+        
+        for(int i=0;i<N;i++) adj.add(new ArrayList<>());
+        
+        // CONSTRUCTING GRAPH
+        for(int i=0;i<graph.length;i++){
+            ArrayList<Integer> temp=new ArrayList<>();
+            for(int j=0;j<graph[0].length;j++){
+                  if(i==j || graph[i][j]==1) adj.get(i).add(j);
+                  if(i==j) temp.add(1);
+                  else temp.add(graph[i][j]);
+            }
+            arr.add(temp);
+        }
+        
+        // DOING DFS CHECK 
+        for(int i=0;i<N;i++){
+            boolean[] visit=new boolean[N];
+             dfs(i,i,adj,arr,visit);
+           
+        }
+        return arr;
+        
+    }
+    private static void dfs(int source,int child,ArrayList<ArrayList<Integer>> adj,ArrayList<ArrayList<Integer>> arr,boolean[] visit){
+        visit[child]=true;
+        
+        
+        for(Integer it:adj.get(child)){
+            if(!visit[it]){
+                // CHECKING WHETHER THEIR IS ANY EDGE BETWEEN SOURCE AND CHILD IF NOT SET IT TO 1
+                if(arr.get(source).get(it)==0){
+                    // System.out.println(source+" "+it);
+                    arr.get(source).set(it,1);
+                }
+                
+                dfs(source,it,adj,arr,visit);
+            }
+        }
+    }
+}
+ 
+
+0
+
+akshatnahata05
+2 hours ago
+
+class Solution{
+public:
+    vector<vector<int>> transitiveClosure(int N, vector<vector<int>> graph)
+    {
+        // code here
+         vector<vector<int>> copy;
+         copy = graph;
+        for(int i=0;i<N;i++){
+            for(int j=0;j<N;j++){
+                if(i==j)copy[i][j]=1;
+                if(copy[i][j]==0)copy[i][j]=1e9;
+            }
+        }
+        for(int k=0;k<N;k++){
+            for(int i=0;i<N;i++){
+                for(int j=0;j<N;j++){
+                    if(copy[i][k]!=1e9&&copy[k][j]!=1e9){
+                        copy[i][j]=min(copy[i][j],copy[i][k]+copy[k][j]);
+                    }
+                }
+            }
+        }
+        for(int i=0;i<N;i++){
+            for(int j=0;j<N;j++){
+                
+                if(copy[i][j]==1e9)copy[i][j]=0;
+                if(copy[i][j]>0)copy[i][j]=1;
+               
+            }
+        }
+        return copy;
+        
+    }
+};
+
++1
+
+nitwmanish
+3 hours ago
+
+class Solution{
+    static ArrayList<ArrayList<Integer>> transitiveClosure(int n, int graph[][]) {
+		for (int via = 0; via < n; via++) {
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					if (graph[i][j] == 0 && graph[i][via] == 1 && graph[via][j] == 1) {
+						graph[i][j] = 1;
+					}
+					if (i == j) {
+						graph[i][j] = 1;
+					}
+				}
+			}
+		}
+		ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+		for (int i = 0; i < n; i++) {
+			ArrayList<Integer> row = new ArrayList<>();
+			for (int j = 0; j < n; j++) {
+				row.add(graph[i][j]);
+			}
+			ans.add(row);
+		}
+		return ans;
+	}
+}
+ 
+
++2
+
+anuragbakodeofficial
+3 hours ago
+
+class Solution{
+public:
+    vector<vector<int>> transitiveClosure(int N, vector<vector<int>> grid)
+    {
+        
+        for(int via = 0 ; via < N ; via++){
+            for(int i = 0 ; i < N ; i++){
+                for(int j = 0 ; j < N ; j++){
+                    if( i == j) grid[i][j] = 1;
+                    if(grid[i][j] == 0){
+                        if(grid[i][via] == 1 && grid[via][j] == 1) grid[i][j] = 1;
+                    }
+                }
+            }
+        }
+        
+        return grid;
+    }
+};
+Its nothing but Floyd warshall algorithm running 3 nested loop will do the work.
+
+0
+
+pasapulasurya
+3 hours ago
+
+how can [0,0,0][0,0,0][0,0,0] transitive closure graph could be [1,0,0][0,1,0][0,0,1]??
+
+Show 1 Replies
+0
+
+dubeyad2003
+3 hours ago
+
+Without Floyd Warshall Algorithm - In O(n * (n + e)) TC and O(n^2) SC.
+
+class Solution{
+private:
+    void dfs(int initial, int node, vector<int>& vis, vector<vector<int>>& ans, vector<int> adj[]){
+        ans[initial][node] = 1;
+        vis[node] = 1;
+        for(auto it: adj[node]){
+            if(!vis[it])
+                dfs(initial, it, vis, ans, adj);
+        }
+    }
+public:
+    vector<vector<int>> transitiveClosure(int N, vector<vector<int>> graph)
+    {
+        vector<int> adj[N];
+        for(int i=0; i<N; i++){
+            for(int j=0; j<N; j++){
+                if(graph[i][j] == 1) adj[i].push_back(j);
+            }
+        }
+        vector<vector<int>> ans(N, vector<int>(N, 0));
+        for(int i=0; i<N; i++){
+            vector<int> vis(N, 0);
+            dfs(i, i,vis,ans,adj);
+        }
+        return ans;
+    }
+};
+ 
+
+ 
+
+ 
+
+ 
+
+C++ (g++ 5.4)
+Average Time: 20m
+
+
+
+
+Custom Input
+wheel
