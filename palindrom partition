@@ -1,0 +1,35 @@
+class Solution{
+public:
+    bool ispali(int start, int end, string & s) {
+
+        while(start < end) {
+            if(s[start] != s[end]){
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
+    int f(int index, int n, string &str, vector<int>&dp) {
+        if(index == n)return 0;
+        
+        if(dp[index]!=-1)return dp[index];
+        int steps = INT_MAX;
+        
+        for(int j = index;j<n;j++) {
+            if(ispali(index, j, str)){
+                int cost = 1 + f(j+1, n, str, dp);
+                steps = min(steps, cost);
+            }
+        }
+        return dp[index] = steps;
+    }
+    int palindromicPartition(string str)
+    {
+        // code here
+        int n = str.size();
+        vector<int>dp(n+1, -1);
+        return f(0, n, str, dp)-1;
+    }
+};
