@@ -1,0 +1,19 @@
+bool isok(struct Node* one,struct Node* two)
+    {
+        if(one==NULL && two == NULL)
+            return true;
+       
+        if(one != NULL && two != NULL)
+           if(one->data==two->data)
+               if(isok(one->left,two->right))
+                   if(isok(one->right,two->left))
+                    return true;
+        return false;
+            
+        
+    }
+    bool isSymmetric(struct Node* root)
+    {
+        if(root==NULL)  return true;
+        return (isok(root->left,root->right));
+    }
