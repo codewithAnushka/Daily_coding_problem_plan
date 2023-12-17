@@ -1,0 +1,27 @@
+class Solution{
+    public:	
+	int help(int* arr,int i,vector<int>& memo)
+	{
+	    //base case
+	    if(i==0)
+	    return arr[0];
+	    
+	    if(i<0)
+	    return 0;
+	    
+	    //memo check
+	    if(memo[i]!=-1)
+	    return memo[i];
+	    
+	    //recursive calls
+	    //small calculation
+	    int a=help(arr,i-1,memo);
+	    int b=arr[i]+help(arr,i-2,memo);
+	    
+	    return memo[i]=max(a,b);
+	}
+	int findMaxSum(int *arr, int n) {
+	    vector<int> memo(n,-1);
+	    return help(arr,n-1,memo);
+	}
+};
