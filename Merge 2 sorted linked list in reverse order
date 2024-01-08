@@ -1,0 +1,58 @@
+class Solution
+{
+    public:
+    
+    struct Node * mergeResult(Node *node1,Node *node2)
+    {
+        Node* node3 = NULL, *temp3 = NULL;
+        while(node1 != NULL || node2 != NULL){
+            if (node1 != NULL && node2 == NULL)
+            {
+                if(node3 == NULL){
+                    node3 = temp3 = newNode(node1->data);
+                    node1 = node1->next;
+                }else{
+                    temp3 = newNode(node1->data);
+                    node1 = node1->next;
+                    temp3->next = node3;
+                    node3 = temp3;
+                }
+            }
+            else if (node2 != NULL && node1 == NULL)
+            {
+                if(node3 == NULL){
+                    node3 = temp3 = newNode(node2->data);
+                    node2 = node2->next;
+                }else{
+                    temp3 = newNode(node2->data);
+                    node2 = node2->next;
+                    temp3->next = node3;
+                    node3 = temp3;
+                }
+            }
+            else if(node1->data <= node2->data){
+                if(node3 == NULL){
+                    node3 = temp3 = newNode(node1->data);
+                    node1 = node1->next;
+                }else{
+                    temp3 = newNode(node1->data);
+                    node1 = node1->next;
+                    temp3->next = node3;
+                    node3 = temp3;
+                }
+            }
+            else if (node1->data > node2->data){
+                if(node3 == NULL){
+                    node3 = temp3 = newNode(node2->data);
+                    node2 = node2->next;
+                }else{
+                    temp3 = newNode(node2->data);
+                    node2 = node2->next;
+                    temp3->next = node3;
+                    node3 = temp3;
+                }
+            }
+        }
+        return node3;
+    }  
+};
