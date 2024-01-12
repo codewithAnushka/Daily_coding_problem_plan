@@ -1,0 +1,32 @@
+queue<int> modifyQueue(queue<int> q, int k) {
+        
+        // add code here.
+        
+        queue<int> ans;
+        
+        vector<int> a;
+        int n = q.size();
+        
+        int i = 1;
+        
+        while(i<=k && !q.empty()){
+            a.push_back(q.front());
+            q.pop();
+            i++;
+        }
+        
+        reverse(a.begin(), a.end());
+        
+        while(i<=n && !q.empty()){
+            a.push_back(q.front());
+            q.pop();
+            i++;
+        }
+        
+        for(int i =0;i<a.size();i++){
+            ans.push(a[i]);
+        }
+        return ans;
+        
+        
+    }
