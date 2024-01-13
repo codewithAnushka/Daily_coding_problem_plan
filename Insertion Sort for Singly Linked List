@@ -1,0 +1,31 @@
+class Solution
+{
+    public:
+    Node* insertionSort(struct Node* head_ref)
+    {
+        Node *newHead=new Node(-1);
+        Node *temp=head_ref;
+        
+        if(temp==NULL) return NULL;
+        
+        while(temp!=NULL)
+        {
+            Node *ptr=newHead;
+            Node *prev=NULL;
+            while(ptr!=NULL){
+                if(ptr->data > temp->data)
+                    break;
+                prev=ptr;
+                ptr=ptr->next;
+            }
+            
+            Node *p2=temp;
+            temp=temp->next;
+            prev->next=p2;
+            p2->next=ptr;
+        }
+        return newHead->next;
+        
+    }
+    
+};
