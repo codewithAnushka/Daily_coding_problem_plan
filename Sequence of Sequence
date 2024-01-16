@@ -1,0 +1,23 @@
+class Solution{
+public:
+    int f(int i, int j, int n, int m){
+        
+        if(j==0){
+            return 1;
+        }
+        
+        if(i>m){
+            return 0;
+        }
+        
+        int take= f(i*2, j-1, n, m);
+        
+        int not_take=f(i+1, j, n, m);
+        
+        return take+not_take;
+    }
+    
+    int numberSequence(int m, int n){
+        return f(1,n,n,m);
+    }
+};
