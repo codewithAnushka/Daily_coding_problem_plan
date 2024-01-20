@@ -1,0 +1,28 @@
+class Solution
+{
+    
+    public:
+    int moves(Node*root , int &cnt)
+    {
+        if(root ==  NULL)
+        {
+            return 0;
+        }
+        
+        int left = moves(root->left,cnt);
+        int right = moves(root->right,cnt);
+        
+        root->key = root->key + left + right;
+        cnt += fabs(left) + fabs(right);
+        return root->key - 1;
+    }
+
+    int distributeCandy(Node* root)
+    {
+        if(root->left == NULL && root->right == NULL) return 0;
+        int cnt = 0;
+        moves(root , cnt);
+        return cnt;
+    }
+};
+
