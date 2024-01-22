@@ -1,0 +1,18 @@
+  void thisHelper(Node* root, int sum, vector<vector<int>>& res, vector<int> curr_vec, int curr_sum){
+        if(!root) return;
+        curr_vec.push_back(root->key);
+        curr_sum += root->key;
+        if(curr_sum == sum) res.push_back(curr_vec);
+
+        thisHelper(root->left, sum, res, curr_vec, curr_sum);
+        thisHelper(root->right, sum, res, curr_vec, curr_sum);
+    }
+
+    vector<vector<int>> printPaths(Node *root, int sum){
+        //code here
+        vector<vector<int>> res;
+        int cur_sum = 0;
+        vector<int> curr_vec;
+        thisHelper(root, sum, res, curr_vec, cur_sum);
+        return res;
+    }
