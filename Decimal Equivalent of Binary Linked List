@@ -1,0 +1,16 @@
+class Solution {
+public:
+    long long unsigned int decimalValue(Node *head) {
+        const int MOD = 1000000007;
+        long long unsigned int result = 0;
+
+        while (head != nullptr) {
+            // Shift the result to the left by 1 and add the current node's value
+            result = (result << 1) % MOD + head->data;
+            head = head->next;
+        }
+
+        return result % MOD;
+    }
+};
+
