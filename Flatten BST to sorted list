@@ -1,0 +1,25 @@
+void flatten(Node *root, Node *&head)
+    {
+        if(!root)
+        return ;
+        
+        flatten(root->left, head);
+        
+        head->right = root;
+        head = head->right;
+        head->left = NULL;
+        
+        flatten(root->right, head);
+        
+    }
+
+    Node *flattenBST(Node *root)
+    {
+        Node *head = new Node(-1);
+        Node *ans = head;
+        flatten(root, head);
+        
+        return ans->right;
+        
+        // code here
+    }
